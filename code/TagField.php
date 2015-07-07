@@ -33,6 +33,11 @@ class TagField extends DropdownField {
 	 * @var string
 	 */
 	protected $titleField = 'Title';
+	
+	/**
+	 * @var array
+	 */
+	protected $exclusions = array();
 
 	/**
 	 * @param string $name
@@ -40,8 +45,9 @@ class TagField extends DropdownField {
 	 * @param null|DataList $source
 	 * @param null|DataList $value
 	 */
-	public function __construct($name, $title = '', $source = null, $value = null) {
+	public function __construct($name, $title = '', $source = null, $value = null, $exclusions = array()) {
 		parent::__construct($name, $title, $source, $value);
+		$this->exclusions = $exclusions;
 	}
 
 	/**
@@ -311,6 +317,7 @@ class TagField extends DropdownField {
 
 		$query = $dataClass::get()
 			->filter($titleField . ':PartialMatch:nocase', $term)
+			->exclude($this->exclusions)
 			->sort($titleField)
 			->limit($this->getLazyLoadItemLimit());
 

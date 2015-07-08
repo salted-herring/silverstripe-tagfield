@@ -288,7 +288,6 @@ class TagField extends DropdownField {
 	 */
 	public function suggest(SS_HTTPRequest $request) {
 		$tags = $this->getTags($request->getVar('term'));
-
 		$response = new SS_HTTPResponse();
 		$response->addHeader('Content-Type', 'application/json');
 		$response->setBody(json_encode(array('items' => $tags)));
@@ -308,6 +307,7 @@ class TagField extends DropdownField {
 		 * @var DataList $source
 		 */
 		$source = $this->getSource();
+		
 
 		$dataClass = $source->dataClass();
 
